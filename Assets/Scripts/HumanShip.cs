@@ -19,5 +19,9 @@ public class HumanShip : Ship {
         } else if (Input.GetKey(KeyCode.D)) {
             RotateRight();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Shoot();
+        }
     }
 }

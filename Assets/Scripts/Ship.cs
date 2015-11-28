@@ -5,6 +5,9 @@ public class Ship : MonoBehaviour
 {
     public float forwardVelocity = 20f;
     public float rotationSpeed = 250f;
+
+    public GameObject bulletObject;
+    public float bulletSpeed = 100f;
     
     protected Rigidbody2D rigidBody;
 
@@ -49,5 +52,14 @@ public class Ship : MonoBehaviour
 
     protected void EmergencyBrake() {
         rigidBody.AddForce(-rigidBody.velocity.normalized * forwardVelocity * 2 * Time.deltaTime);
+    }
+
+    protected void Shoot() {
+        GameObject bullet = Instantiate<GameObject>(bulletObject);
+
+        bullet.transform.position = transform.position + transform.up * 0.2f;
+        bullet.transform.rotation = transform.rotation;
+
+        bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * bulletSpeed);
     }
 }
