@@ -19,8 +19,6 @@ public class AiShip : Ship
     }
 
     void Update() {
-        Debug.Log(rigidBody.velocity.magnitude);
-
         if (target) {
             if (rigidBody.velocity.magnitude >  maxVelocity) {
                 // RotateTowards(rigidBody.velocity);
