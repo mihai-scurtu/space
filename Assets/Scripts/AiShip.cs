@@ -24,7 +24,7 @@ public class AiShip : Ship
                 // RotateTowards(rigidBody.velocity);
                 // ThrustDown();
 
-                rigidBody.AddForce(-rigidBody.velocity.normalized * forwardVelocity * 2 * Time.deltaTime);
+                EmergencyBrake();
             } else {
                 RotateTowards(targetTransform.position + (Vector3) targetRigidBody.velocity);
                 KeepDistance(targetTransform);

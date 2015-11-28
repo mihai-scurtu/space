@@ -46,4 +46,8 @@ public class Ship : MonoBehaviour
         rotationVector.z += increment * Time.deltaTime;
         transform.rotation = Quaternion.Euler(rotationVector);
     }
+
+    protected void EmergencyBrake() {
+        rigidBody.AddForce(-rigidBody.velocity.normalized * forwardVelocity * 2 * Time.deltaTime);
+    }
 }
