@@ -3,7 +3,9 @@ using System.Collections;
 
 public class HumanShip : Ship {
 	// Update is called once per frame
-	void Update () {
+	public new void Update () {
+        base.Update();
+
         HandleInput(); 
     }
 

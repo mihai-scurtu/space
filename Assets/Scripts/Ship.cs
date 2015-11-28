@@ -8,12 +8,21 @@ public class Ship : MonoBehaviour
 
     public GameObject bulletObject;
     public float bulletSpeed = 100f;
+    public float reloadTime = 1f;
     
     protected Rigidbody2D rigidBody;
+
+    protected float shootCooldown = 0f;
 
     // Use this for initialization
     public void Start() {
         rigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    public void Update() {
+        if (shootCooldown > 0) {
+            shootCooldown -= Time.deltaTime;
+        }
     }
 
     protected void ThrustUp() {
@@ -55,11 +64,17 @@ public class Ship : MonoBehaviour
     }
 
     protected void Shoot() {
+        if (shootCooldown > 0) {
+            return;
+        }
+
         GameObject bullet = Instantiate<GameObject>(bulletObject);
 
         bullet.transform.position = transform.position + transform.up * 0.2f;
         bullet.transform.rotation = transform.rotation;
 
         bullet.GetComponent<Rigidbody2D>().AddForce(transform.up * bulletSpeed);
+
+        shootCooldown = reloadTime;
     }
 }

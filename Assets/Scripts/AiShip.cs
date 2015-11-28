@@ -18,7 +18,9 @@ public class AiShip : Ship
         targetRigidBody = target.GetComponent<Rigidbody2D>();
     }
 
-    void Update() {
+    public new void Update() {
+        base.Update();
+
         if (target) {
             if (rigidBody.velocity.magnitude >  maxVelocity) {
                 // RotateTowards(rigidBody.velocity);
@@ -28,7 +30,10 @@ public class AiShip : Ship
             } else {
                 RotateTowards(targetTransform.position + (Vector3) targetRigidBody.velocity);
                 KeepDistance(targetTransform);
-            }          
+            }
+
+            // this will only work if timeout is zero
+            Shoot();
         }
     }
 
