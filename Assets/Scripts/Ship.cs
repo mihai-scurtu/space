@@ -34,8 +34,6 @@ public class Ship : MonoBehaviour
     }
 
     public void OnCollisionEnter2D(Collision2D coll) {
-        Debug.Log(coll.gameObject);
-
         if (coll.gameObject.tag == "Bullet") {
             health -= Ship.DAMAGE;
             Destroy(coll.gameObject);

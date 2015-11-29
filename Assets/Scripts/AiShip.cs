@@ -60,11 +60,21 @@ public class AiShip : Ship
 
     void AcquireTarget() {
         GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
+        ArrayList otherTargets = new ArrayList();
 
-        if (targets.Length > 0) {
-            int pos = Random.Range(0, targets.Length);
+        foreach (GameObject obj in targets) {
+            if (obj != this.gameObject) {
+                otherTargets.Add(obj);
+            }
+        }
+
+        if (otherTargets.Count > 0) {
+            int pos = Random.Range(0, otherTargets.Count);
             
-            UpdateTarget(targets[pos]);
+            UpdateTarget((GameObject) otherTargets[pos]);
+        } else {
+            // if there are no targets stop
+            this.EmergencyBrake();
         }
     }
 
