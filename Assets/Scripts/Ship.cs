@@ -3,13 +3,17 @@ using System.Collections;
 
 public class Ship : MonoBehaviour
 {
+    public static float DAMAGE = 10f;
+
     public float forwardVelocity = 20f;
     public float rotationSpeed = 250f;
 
     public GameObject bulletObject;
     public float bulletSpeed = 100f;
     public float reloadTime = 1f;
-    
+
+    public float health = 100f;
+
     protected Rigidbody2D rigidBody;
 
     protected float shootCooldown = 0f;
@@ -23,7 +27,20 @@ public class Ship : MonoBehaviour
         if (shootCooldown > 0) {
             shootCooldown -= Time.deltaTime;
         }
+
+        if (health < 0) {
+            Destroy(this.gameObject);
+        }
     }
+
+    public void OnCollisionEnter2D(Collision2D coll) {
+        Debug.Log(coll.gameObject);
+
+        if (coll.gameObject.tag == "Bullet") {
+            health -= Ship.DAMAGE;
+            Destroy(coll.gameObject);
+        }
+    } 
 
     protected void ThrustUp() {
         Thrust(forwardVelocity);
