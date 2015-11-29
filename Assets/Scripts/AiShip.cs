@@ -11,15 +11,22 @@ public class AiShip : Ship
     protected Transform targetTransform;
     protected Rigidbody2D targetRigidBody;
 
+    public string targetTag = "Ship";
+
     public new void Start() {
         base.Start();
 
-        targetTransform = target.GetComponent<Transform>();
-        targetRigidBody = target.GetComponent<Rigidbody2D>();
+        if (target) {
+            UpdateTarget(target);
+        }
     }
 
     public new void Update() {
         base.Update();
+
+        if (!target) {
+            AcquireTarget();
+        }
 
         if (target) {
             if (rigidBody.velocity.magnitude >  maxVelocity) {
@@ -49,5 +56,21 @@ public class AiShip : Ship
         } else {
             ThrustUp();
         }
+    }
+
+    void AcquireTarget() {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
+
+        if (targets.Length > 0) {
+            int pos = Random.Range(0, targets.Length);
+            
+            UpdateTarget(targets[pos]);
+        }
+    }
+
+    void UpdateTarget(GameObject obj) {
+        target = obj;
+        targetTransform = target.GetComponent<Transform>();
+        targetRigidBody = target.GetComponent<Rigidbody2D>();
     }
 }
