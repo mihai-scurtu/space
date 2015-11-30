@@ -39,8 +39,10 @@ public class AiShip : Ship
                 KeepDistance(targetTransform);
             }
 
-            // this will only work if timeout is zero
-            Shoot();
+            if (shootCooldown <= 0 && ShouldShootTarget()) {
+                Shoot();
+            }
+            
 
             // Debug.DrawLine(transform.position, target.transform.position, Color.red);
         }
@@ -84,5 +86,27 @@ public class AiShip : Ship
         target = obj;
         targetTransform = target.GetComponent<Transform>();
         targetRigidBody = target.GetComponent<Rigidbody2D>();
+    }
+
+    bool ShouldShootTarget() {
+        if (Mathf.Abs(AngleTo(targetTransform)) < 10) {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, targetTransform.position - transform.position, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ships"));
+
+            if (hits.Length > 1) {
+                // to avoid hitting the main collider
+                RaycastHit2D hit = hits[1];
+
+                if (hit.transform != null) {
+                    string hitTag = hit.transform.gameObject.tag;
+
+
+                    if (hitTag == targetTag) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

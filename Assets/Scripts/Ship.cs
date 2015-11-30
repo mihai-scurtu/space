@@ -92,4 +92,9 @@ public class Ship : MonoBehaviour
 
         shootCooldown = reloadTime;
     }
+
+    protected float AngleTo(Transform targetTransform) {
+        Vector3 vectorToTarget = targetTransform.position - transform.position;
+        return Vector3.Angle(transform.up, vectorToTarget);
+    }
 }
