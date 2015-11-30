@@ -41,6 +41,8 @@ public class AiShip : Ship
 
             // this will only work if timeout is zero
             Shoot();
+
+            // Debug.DrawLine(transform.position, target.transform.position, Color.red);
         }
     }
 
