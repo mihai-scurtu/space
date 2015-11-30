@@ -28,7 +28,7 @@ public class AiShip : Ship
             AcquireTarget();
         }
 
-        if (target) {
+        if (target && targetRigidBody) {
             if (rigidBody.velocity.magnitude >  maxVelocity) {
                 // RotateTowards(rigidBody.velocity);
                 // ThrustDown();
