@@ -89,7 +89,7 @@ public class AiShip : Ship
     }
 
     bool ShouldShootTarget() {
-        if (Mathf.Abs(AngleTo(targetTransform)) < 10) {
+        if (Mathf.Abs(AngleTo(targetTransform)) < 5) {
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, targetTransform.position - transform.position, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ships"));
 
             if (hits.Length > 1) {
