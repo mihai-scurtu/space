@@ -27,8 +27,8 @@ public class CameraControls : MonoBehaviour {
     }
 
     void Zoom() {
-        float zoom = -Input.mouseScrollDelta.y * zoomIncrement;
-
-        Camera.main.orthographicSize += zoom;
+        float zoom = Camera.main.orthographicSize - Input.mouseScrollDelta.y * zoomIncrement;
+       
+        Camera.main.orthographicSize = Mathf.Max(zoom, 1);
     }
 }
